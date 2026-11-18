@@ -6,9 +6,8 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-BOT_TOKEN = "9030078036:AAF43TiHTvpKZdEMd5Z1QrisXD1If_w1D-k"
-CHAT_ID =   "6951515440"
-
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 def notify_telegram(username, demo_code):
     if not BOT_TOKEN or not CHAT_ID:
